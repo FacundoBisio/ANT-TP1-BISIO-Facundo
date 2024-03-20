@@ -6,7 +6,7 @@ services:
   app:
     build: .
     ports:
-      - 8000:8000
+      - '8000:8000'
     container_name: app
     volumes:
       - .:/app
@@ -17,6 +17,7 @@ services:
 
   mysql:
     image: mysql
+    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: itsv
       MYSQL_DATABASE: itsv
@@ -33,20 +34,17 @@ services:
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
+    restart: always
     container_name: phpmyadmin
     depends_on:
       - mysql
     ports:
-      - 8080:8080
+      - '8080:80'
     environment:
       PMA_HOST: mysql
-      PMA_PORT: 3306
-      PMA_USER: root
-      PMA_PASSWORD: password
     networks:
       - itsv
 
 networks:
   itsv:
     driver: bridge
-    
